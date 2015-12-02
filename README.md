@@ -1,7 +1,11 @@
 # mobilityConvergence
 
 ## Concept
-* Avatar dynamique Star Wars basé sur la photo de l'utilisateur
-* Interaction avec l'avatar à partir des mouvements du téléphone (gyroscope, shake, caméra):
-  * shake: changement de l'avatar
-* Partage de la photo de l'avatar sur les réseaux sociaux
+Partager l'addition d'un repas au restaurant
+
+## Brief
+Déterminer le % de l'addition à partager en fonction du temps par rapport à une heure donnée
+
+## Pour qui ?
+Les couples
+
