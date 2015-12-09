@@ -32,7 +32,7 @@ function isArrivedInResto(position) {
     if (latResto === currentLat && lngResto === currentLng) {
         console.log('Tu es arrivé');
     } else {
-        console.log('tu n\'est pas arrivé :/ ')
+        console.log('tu n\'es pas arrivé :/ ')
     }
 }
 localforage.config({
