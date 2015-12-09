@@ -36,35 +36,40 @@ function isArrivedInResto(position) {
     }
 }
 localforage.config({
-    driver      : localforage.WEBSQL, // Force WebSQL; same as using setDriver()
-    name        : 'myApp',
-    version     : 1.0,
-    size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
-    storeName   : 'keyvaluepairs', // Should be alphanumeric, with underscores.
-    description : 'some description'
+    driver: localforage.WEBSQL, // Force WebSQL; same as using setDriver()
+    name: 'myApp',
+    version: 1.0,
+    size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+    storeName: 'keyvaluepairs', // Should be alphanumeric, with underscores.
+    description: 'some description'
 });
 var meet = localforage.createInstance({
     name: "_meetings"
 });
+
 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
-function testLocalForage(){
-    var obj = { value: "hello world" };
-    meet.setItem('localforage', obj, function(err, result) { console.log(result.value); });
-}
-function storeMeeting(date,hour,place,contact){
-        var obj = {date : date,hour:hour,place : place,contact:contact};
-        var random =''+ Math.round(Math.random()*1000);
-       //console.log(obj,random);
+function storeMeeting(date, hour, place,contact) {
+    var obj = {date: date, hour: hour, place: place, contact: contact};
+    var random = '' + Math.round(Math.random() * 10000);
 
-        var meetingObject = Parse.Object.extend("Meetings");
-        var meetingObject = new meetingObject();
+    var meetingObject = Parse.Object.extend("Meetings");
+    var meetingObject = new meetingObject();
 
-        meet.setItem(random,obj, function(err, result) {
-            if(result){
-                 meetingObject.save(obj).then(function(object){
-                     console.log(object);
-                 });
-             }
-      });
-
+    meet.getItem(random, function (err, value) {
+        if (err) {
+            console.log('error');
+        }
+        else {
+            if (!!value) {
+            } else {
+                meet.setItem(random,obj, function(err, result) {
+                    if(result){
+                        meetingObject.save(obj).then(function(object){
+                            console.log(object);
+                        });
+                    }
+                });
+            }
+        }
+    })
 }
