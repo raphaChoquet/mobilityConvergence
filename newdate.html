@@ -37,7 +37,7 @@
                             <label for="address">Adresse</label>
                             <input type="text" class="form-control" id="address">
                         </div>
-                        <button type="submit" class="btn btn-default" onclick="storeMeetingData()">Enregistrer</button>
+                        <button type="submit" class="btn btn-default" id="storeMeet">Enregistrer</button>
                     </form>
                 </div>
                 <div class="mastfoot">
@@ -48,18 +48,24 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script src="js/main.js"></script>
     <script>
-      // testLocalForage();
-        function storeMeetingData(){
-            var date = document.getElementById('date').value;
-            var hour = document.getElementById('time').value;
-            var place = document.getElementById('address').value;
-            storeMeeting(date,hour,place);
-        }
+        $(function(){
+            $('#storeMeet').on('click',function(e){
+                e.preventDefault() && e.stopPropagation();
+                storeMeetingData();
+            });
+            function storeMeetingData(){
+                var date = document.getElementById('date').value;
+                var hour = document.getElementById('time').value;
+                var place = document.getElementById('address').value;
+                storeMeeting(date,hour,place);
+            }
+        });
+
         //storeMeeting
     </script>
     </body>
