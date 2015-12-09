@@ -32,7 +32,7 @@ function isArrivedInResto(position) {
     if (latResto === currentLat && lngResto === currentLng) {
         console.log('Tu es arrivé');
     } else {
-        console.log('tu n\'est pas arrivé :/ ')
+        console.log('tu n\'es pas arrivé :/ ')
     }
 }
 localforage.config({
@@ -53,6 +53,10 @@ function testLocalForage(){
 }
 function storeMeeting(date,hour,place){
         var obj = {date : date,hour:hour,place : place};
-        var random = Math.round(Math.random()*1000);
-       meet.setItem(random,obj, function(err, result) { console.log(result.value); });
+        var random =''+ Math.round(Math.random()*1000);
+       console.log(obj,random);
+      meet.setItem(random,obj, function(err, result) {
+          console.log(result.value);
+      });
+
 }
