@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Confirmer le rendez-vous</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+    <div class="site-wrapper">
+        <div class="site-wrapper-inner">
+            <div class="cover-container">
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <li><a href="index.html">Retour</a></li>
+                            </ul>
+                        </nav>
+                        <h1 class="masthead-brand">Partage l'addition</h1>
+                    </div>
+                </div>
+                <div class="inner cover">
+                    <p class="lead">Votre rendez-vous a bien été créé !</p>
+                    <p>Pour confirmer le rendez-vous à votre ami, veuillez partager le lien affiché ci-dessous</p>
+                    <p id="dateLink"></p>
+                </div>
+                <div class="mastfoot">
+                    <div class="inner">
+                        <small>&copy; IESA multimedia</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="bower_components/localforage/dist/localforage.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $(function(){
+            $('#storeMeet').on('click',function(e){
+                e.preventDefault() && e.stopPropagation();
+                storeMeetingData();
+            });
+
+
+            function storeMeetingData(){
+                var date = document.getElementById('date').value;
+                var hour = document.getElementById('time').value;
+                var place = document.getElementById('address').value;
+                var contact = document.getElementById('contact').value;
+                storeMeeting(date,hour,place,contact);
+            }
+        });
+
+        //storeMeeting
+    </script>
+    </body>
+</html>
