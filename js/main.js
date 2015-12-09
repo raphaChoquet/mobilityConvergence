@@ -75,7 +75,13 @@ function storeMeeting(date, hour, place,contact) {
                         });
                     }
                 });
+                showDateCreated();
             }
         }
     })
+}
+
+function showDateCreated(){
+    $("#newDate").hide();
+    $("#dateCreated").show();
 }

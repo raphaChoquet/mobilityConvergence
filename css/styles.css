@@ -97,10 +97,16 @@ body {
 
 @media (min-width: 768px) {
     .masthead-brand {
-        float: left;
+        /*float: left;*/
+        width: 70%;
+        text-align: left;
     }
     .masthead-nav {
-        float: right;
+        /*float: right;*/
+        width: 25%;
+    }
+    .masthead-brand, .masthead-nav{
+        display: inline-block;
     }
 }
 
@@ -115,6 +121,9 @@ body {
 .cover .btn-lg {
     padding: 10px 20px;
     font-weight: bold;
+}
+#dateCreated{
+    display: none;
 }
 
 
