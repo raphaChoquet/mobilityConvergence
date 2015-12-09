@@ -54,6 +54,7 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script src="js/main.js"></script>
@@ -63,11 +64,14 @@
                 e.preventDefault() && e.stopPropagation();
                 storeMeetingData();
             });
+
+
             function storeMeetingData(){
                 var date = document.getElementById('date').value;
                 var hour = document.getElementById('time').value;
                 var place = document.getElementById('address').value;
-                storeMeeting(date,hour,place);
+                var contact = document.getElementById('contact').value;
+                storeMeeting(date,hour,place,contact);
             }
         });
 
