@@ -35,3 +35,24 @@ function isArrivedInResto(position) {
         console.log('tu n\'est pas arrivé :/ ')
     }
 }
+localforage.config({
+    driver      : localforage.WEBSQL, // Force WebSQL; same as using setDriver()
+    name        : 'myApp',
+    version     : 1.0,
+    size        : 4980736, // Size of database, in bytes. WebSQL-only for now.
+    storeName   : 'keyvaluepairs', // Should be alphanumeric, with underscores.
+    description : 'some description'
+});
+var meet = localforage.createInstance({
+    name: "_meetings"
+});
+
+function testLocalForage(){
+    var obj = { value: "hello world" };
+    meet.setItem('localforage', obj, function(err, result) { console.log(result.value); });
+}
+function storeMeeting(date,hour,place){
+        var obj = {date : date,hour:hour,place : place};
+        var random = Math.round(Math.random()*1000);
+       meet.setItem(random,obj, function(err, result) { console.log(result.value); });
+}
