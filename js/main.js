@@ -65,6 +65,12 @@ function storeMeeting(date, hour, place,contact) {
                 meet.setItem(random,obj, function(err, result) {
                     if(result){
                         meetingObject.save(obj).then(function(object){
+                            meet.getItem(random,function(err, value){
+                                if(value){
+                                    value.idParse = object.id;
+                                    meet.setItem(random,value);
+                                }
+                            });
                             console.log(object);
                         });
                     }
