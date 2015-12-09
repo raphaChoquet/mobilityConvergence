@@ -47,15 +47,13 @@ var meet = localforage.createInstance({
     name: "_meetings"
 });
 
-function testLocalForage() {
-    var obj = {value: "hello world"};
-    meet.setItem('localforage', obj, function (err, result) {
-        console.log(result.value);
-    });
-}
-function storeMeeting(date, hour, place) {
-    var obj = {date: date, hour: hour, place: place};
+Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
+function storeMeeting(date, hour, place,contact) {
+    var obj = {date: date, hour: hour, place: place, contact: contact};
     var random = '' + Math.round(Math.random() * 10000);
+
+    var meetingObject = Parse.Object.extend("Meetings");
+    var meetingObject = new meetingObject();
 
     meet.getItem(random, function (err, value) {
         if (err) {
@@ -64,9 +62,14 @@ function storeMeeting(date, hour, place) {
         else {
             if (!!value) {
             } else {
-                meet.setItem(random, obj);
+                meet.setItem(random,obj, function(err, result) {
+                    if(result){
+                        meetingObject.save(obj).then(function(object){
+                            console.log(object);
+                        });
+                    }
+                });
             }
         }
     })
-
 }
