@@ -150,28 +150,36 @@
         <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="bower_components/localforage/dist/localforage.js"></script>
+        <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
         <script src="js/main.js"></script>
         <script>
-
-            //Get informations Local Storage
-
-            //storeMeeting
-
-            //---
-            /*$(function() {
-                Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
-                var meetingId = location.search.replace('?','');
-                var meetingObject = Parse.Object.extend("Meetings");
-                var query =new Parse.Query(meetingObject);
-                query.get(meetingId,{
-                    success: function(res){
-                        console.log(res);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
+            $(function(){
+                $('#storeMeet').on('click',function(e){
+                    e.preventDefault() && e.stopPropagation();
+                    storeMeetingData();
                 });
-            });*/
+
+
+                function storeMeetingData(){
+                    var date = document.getElementById('date').value;
+                    var hour = document.getElementById('time').value;
+                    var place = document.getElementById('address').value;
+                    var contact = document.getElementById('contact').value;
+                    var lat = null;
+                    var long = null;
+                    storeMeeting(date,hour,place,contact,lat,long);
+                    console.log(date,hour,place,contact,lat,long);
+                }
+
+            });
+            var pubNub = PUBNUB.init({
+                publish_key: 'pub-c-9cf9add4-0dbe-4dfb-b9b0-23c0007fab9a',
+                subscribe_key: 'sub-c-37c4cafc-a3d9-11e5-9196-02ee2ddab7fe'
+            });
+            pubNub.subscribe({
+                channel: '0QcEgSMHu2',
+                message: function(m){console.log(m)}
+            });
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fONeGuj1y1R0jB5lIfzA9zE-8AhMYiI&libraries=places&callback=initAutocomplete" async defer></script>
     </body>
