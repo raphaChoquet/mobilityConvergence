@@ -1,4 +1,4 @@
-if ("geolocation" in navigator) {
+/*if ("geolocation" in navigator) {
     var watchID = navigator.geolocation.watchPosition(watchPosition);
 } else {
     alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
@@ -34,7 +34,8 @@ function isArrivedInResto(position) {
     } else {
         console.log('tu n\'es pas arrivé :/ ')
     }
-}
+}*/
+
 localforage.config({
     driver: localforage.WEBSQL, // Force WebSQL; same as using setDriver()
     name: 'myApp',
@@ -43,6 +44,7 @@ localforage.config({
     storeName: 'keyvaluepairs', // Should be alphanumeric, with underscores.
     description: 'some description'
 });
+
 var meet = localforage.createInstance({
     name: "_meetings"
 });
@@ -71,14 +73,14 @@ function storeMeeting(date, hour, place,contact) {
                                     meet.setItem(random,value);
                                 }
                             });
-                            console.log(object);
+                            $('#dateLink').append('<a href="confirmLink.html?' + object.id +'"</a> Copiez le lien</a>');
                         });
                     }
                 });
                 showDateCreated();
             }
         }
-    })
+    });
 }
 
 function showDateCreated(){
