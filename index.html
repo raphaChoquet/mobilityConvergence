@@ -70,37 +70,6 @@
                                 <p class="lead">Votre rendez-vous a bien été créé</p>
                                 <p>Pour faire confirmer le rendez-vous à votre ami, partagez le lien affiché ci-dessous.</p>
                                 <p id="dateShowLink"></p>
-                            </div>
-                        </div>
-                        <div class="mastfoot">
-                            <div class="inner">
-                                <small>&copy; IESA multimedia</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- LINK -->
-        <div class="page" id="page-link">
-            <div class="site-wrapper">
-                <div class="site-wrapper-inner">
-                    <div class="cover-container">
-                        <div class="masthead clearfix">
-                            <div class="inner">
-                                <h1 class="masthead-brand">Partage l'addition</h1>
-                                <nav class="masthead-nav">
-                                    <ul class="nav masthead-nav">
-                                        <li><a href="index.html">Retour</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="inner cover">
-                            <div id="newDate">
-                                <p class="lead">Votre rendez-vous a bien été créé</p>
-                                <p>Pour faire confirmer le rendez-vous à votre ami, partagez le lien affiché ci-dessous.</p>
-                                <p id="dateLink"></p>
                                 <a class="btn btn-default" href="#page-myDates">Voir mes rendez-vous</a>
                             </div>
                         </div>
@@ -145,7 +114,32 @@
                 </div>
             </div>
         </div>
-
+        <div class="page" id="page-confirme">
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                    <div class="cover-container">
+                        <div class="masthead clearfix">
+                            <div class="inner">
+                                <h1>Félicitation !</h1>
+                            </div>
+                        </div>
+                        <div class="inner cover">
+                            <p class="lead">Vous avez bien validé l'invitation de XXX</p>
+                            <p>Date : </p>
+                            <p>Heure : </p>
+                            <p>Adresse :</p>
+                            <p id="dateLink"></p>
+                            <a href="#">Clique ici pour annuler ta validation</a>
+                        </div>
+                        <div class="mastfoot">
+                            <div class="inner">
+                                <small>&copy; IESA multimedia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -157,8 +151,14 @@
 
             //storeMeeting
 
-            //---
-            /*$(function() {
+            $("#dateShowLink").on('click', 'a', function (e) {
+                e.preventDefault() && e.stopPropagation();
+                $('#page-createDate').hide();
+                $('#page-confirme').show();
+                showMeeting();
+            });
+            function showMeeting() {
+
                 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
                 var meetingId = location.search.replace('?','');
                 var meetingObject = Parse.Object.extend("Meetings");
@@ -171,7 +171,7 @@
                         console.log(error);
                     }
                 });
-            });*/
+            }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fONeGuj1y1R0jB5lIfzA9zE-8AhMYiI&libraries=places&callback=initAutocomplete" async defer></script>
     </body>

@@ -73,11 +73,11 @@ function storeMeeting(date, hour, place ,contact) {
                                 }
                             });
 
-                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id +'"> lien</a>');
+                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id + '">TEST</a>');
                         });
                     }
                 });
-                //showDateCreated();
+                showDateCreated();
             }
         }
     });
@@ -174,7 +174,5 @@ $(function(){
     $('#storeMeet').on('click',function(e){
         e.preventDefault() && e.stopPropagation();
         storeMeetingData();
-        $('#page-createDate').hide();
-        $('#page-link').show();
     });
 });
