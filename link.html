@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lien</title>
+</head>
+<body>
+    <div id="msg"></div>
+    <script>
+        var msg = location.search.replace('?','');
+        document.getElementById('msg').innerHTML = decodeURIComponent(msg);
+    </script>
+</body>
+</html>
