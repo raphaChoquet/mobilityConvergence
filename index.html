@@ -1,20 +1,22 @@
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Accueil</title>
+        <title>Partage l'addition</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
     </head>
     <body>
-        <div class="site-wrapper">
+        <div class="page active" id="page-home">
+            <div class="site-wrapper">
                 <div class="site-wrapper-inner">
                     <div class="cover-container">
                         <div class="inner cover">
                             <h1 class="cover-heading">Partage l'addition !</h1>
                             <p class="lead">
-                                <a href="newdate.html" class="btn btn-lg btn-default">Créer un nouveau rendez-vous</a>
+                                <a id="createRDV" href="#page-createDate" class="btn btn-lg btn-default">Créer un nouveau rendez-vous</a>
                             </p>
                         </div>
                         <div class="mastfoot">
@@ -25,9 +27,171 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- CREATEDATE -->
+        <div class="page" id="page-createDate">
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                    <div class="cover-container">
+                        <div class="masthead clearfix">
+                            <div class="inner">
+                                <h1 class="masthead-brand">Partage l'addition</h1>
+                                <nav class="masthead-nav">
+                                    <ul class="nav masthead-nav">
+                                        <li><a href="index.html">Retour</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="inner cover">
+                            <div id="newDate">
+                                <p class="lead">Entre les informations du rendez-vous</p>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="contact">Votre nom</label>
+                                        <input type="text" class="form-control" id="contact">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date">Date</label>
+                                        <input type="date" class="form-control" id="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time">Heure</label>
+                                        <input type="time" class="form-control" id="time">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Adresse</label>
+                                        <input type="text" class="form-control" id="address">
+                                    </div>
+                                    <a class="btn btn-default" id="storeMeet">Enregistrer</a>
+                                </form>
+                            </div>
+                            <div id="dateCreated">
+                                <p class="lead">Votre rendez-vous a bien été créé</p>
+                                <p>Pour faire confirmer le rendez-vous à votre ami, partagez le lien affiché ci-dessous.</p>
+                                <p id="dateLink"></p>
+                            </div>
+                        </div>
+                        <div class="mastfoot">
+                            <div class="inner">
+                                <small>&copy; IESA multimedia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LINK -->
+        <div class="page" id="page-link">
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                    <div class="cover-container">
+                        <div class="masthead clearfix">
+                            <div class="inner">
+                                <h1 class="masthead-brand">Partage l'addition</h1>
+                                <nav class="masthead-nav">
+                                    <ul class="nav masthead-nav">
+                                        <li><a href="index.html">Retour</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="inner cover">
+                            <div id="newDate">
+                                <p class="lead">Votre rendez-vous a bien été créé</p>
+                                <p>Pour faire confirmer le rendez-vous à votre ami, partagez le lien affiché ci-dessous.</p>
+                                <p id="dateLink"></p>
+                                <a class="btn btn-default" href="#page-myDates">Voir mes rendez-vous</a>
+                            </div>
+                        </div>
+                        <div class="mastfoot">
+                            <div class="inner">
+                                <small>&copy; IESA multimedia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MYDATES -->
+        <div class="page" id="page-myDates">
+            <div class="site-wrapper">
+                <div class="site-wrapper-inner">
+                    <div class="cover-container">
+                        <div class="masthead clearfix">
+                            <div class="inner">
+                                <h1 class="masthead-brand">Partage l'addition</h1>
+                                <nav class="masthead-nav">
+                                    <ul class="nav masthead-nav">
+                                        <li><a href="index.html">Retour</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="inner cover">
+                            <div id="newDate">
+                                <p class="lead">Vos rendez-vous à venir</p>
+                                <ul>
+                                    <li>Test</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mastfoot">
+                            <div class="inner">
+                                <small>&copy; IESA multimedia</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="bower_components/localforage/dist/localforage.js"></script>
         <script src="js/main.js"></script>
+        <script>
+
+            $('#createRDV').click(function(e) {
+                e.preventDefault() && e.stopPropagation();
+                $('#page-home').hide();
+                $('#page-createDate').show();
+            });
+            //Get informations Local Storage
+            $(function(){
+                $('#storeMeet').on('click',function(e){
+                    e.preventDefault() && e.stopPropagation();
+                    storeMeetingData();
+                    $('#page-createDate').hide();
+                    $('#page-link').show();
+                });
+                function storeMeetingData(){
+                    var date = document.getElementById('date').value;
+                    var hour = document.getElementById('time').value;
+                    var place = document.getElementById('address').value;
+                    var contact = document.getElementById('contact').value;
+                    storeMeeting(date,hour,place,contact);
+
+                }
+            });
+            //storeMeeting
+
+            //---
+            /*$(function() {
+                Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
+                var meetingId = location.search.replace('?','');
+                var meetingObject = Parse.Object.extend("Meetings");
+                var query =new Parse.Query(meetingObject);
+                query.get(meetingId,{
+                    success: function(res){
+                        console.log(res);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });*/
+        </script>
     </body>
 </html>

@@ -36,6 +36,8 @@ function isArrivedInResto(position) {
     }
 }*/
 
+
+//Init Local Forage
 localforage.config({
     driver: localforage.WEBSQL, // Force WebSQL; same as using setDriver()
     name: 'myApp',
@@ -49,6 +51,9 @@ var meet = localforage.createInstance({
     name: "_meetings"
 });
 
+
+
+//Init Parse
 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
 function storeMeeting(date, hour, place,contact) {
     var obj = {date: date, hour: hour, place: place, contact: contact};
@@ -73,14 +78,18 @@ function storeMeeting(date, hour, place,contact) {
                                     meet.setItem(random,value);
                                 }
                             });
-                            $('#dateLink').append('<a href="confirmLink.html?' + object.id +'"</a> Copiez le lien</a>');
+                            $('#dateLink').append('<a href="confirmLink.html?' + object.id +'"> lien</a>');
                         });
                     }
                 });
-                showDateCreated();
+                //showDateCreated();
             }
         }
     });
+}
+
+function showPage(){
+
 }
 
 function showDateCreated(){
