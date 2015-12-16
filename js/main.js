@@ -1,35 +1,37 @@
-if ("geolocation" in navigator) {
-    var watchID = navigator.geolocation.watchPosition(watchPosition);
-} else {
-    alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
-}
-
-function watchPosition(position) {
-    
-    isArrivedInResto(position);
-}
-
-
-function round4Digits(number) {
-    return Math.round(number * 10000) / 10000;
-}
-
-
-function isArrivedInResto(position) {
-
-    var latResto = 48.8656;
-    var lngResto = 2.3790;
-
-    var currentLat = round4Digits(position.coords.latitude);
-    var currentLng = round4Digits(position.coords.longitude);
-
-    if (latResto === currentLat && lngResto === currentLng) {
-        console.log('Tu es arrivé');
+function geolocalisation() {
+    if ("geolocation" in navigator) {
+        var watchID = navigator.geolocation.watchPosition(watchPosition);
     } else {
-        console.log('tu n\'es pas arrivé :/ ')
+        alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+    }
+
+    function watchPosition(position) {
+        isArrivedInResto(position);
+    }
+
+    function round4Digits(number) {
+        return Math.round(number * 10000) / 10000;
+    }
+
+    function isArrivedInResto(position) {
+
+        var latResto = 48.8656;
+        var lngResto = 2.3790;
+
+        var currentLat = round4Digits(position.coords.latitude);
+        var currentLng = round4Digits(position.coords.longitude);
+
+        if (latResto === currentLat && lngResto === currentLng) {
+            console.log('Tu es arrivé');
+        } else {
+            console.log('tu n\'es pas arrivé :/ ')
+        }
     }
 }
 
+
+
+//Init Local Forage
 localforage.config({
     driver: localforage.WEBSQL, // Force WebSQL; same as using setDriver()
     name: 'myApp',
@@ -43,8 +45,10 @@ var meet = localforage.createInstance({
     name: "_meetings"
 });
 
+
+//Init Parse
 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
-function storeMeeting(date, hour, place,contact) {
+function storeMeeting(date, hour, place ,contact) {
     var obj = {date: date, hour: hour, place: place, contact: contact};
     var random = '' + Math.round(Math.random() * 10000);
 
@@ -57,6 +61,7 @@ function storeMeeting(date, hour, place,contact) {
         }
         else {
             if (!!value) {
+                console.log('error');
             } else {
                 meet.setItem(random,obj, function(err, result) {
                     if(result){
@@ -67,25 +72,25 @@ function storeMeeting(date, hour, place,contact) {
                                     meet.setItem(random,value);
                                 }
                             });
-                            $('#dateLink').append('<a href="confirmLink.html?' + object.id +'"</a> Copiez le lien</a>');
+
+                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id +'"> lien</a>');
                         });
                     }
                 });
-                showDateCreated();
+                //showDateCreated();
             }
         }
     });
 }
+
 
 function showDateCreated(){
     $("#newDate").hide();
     $("#dateCreated").show();
 }
 
-
-
+var coordinates = {};
 function initAutocomplete() {
-
 
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -33.8688, lng: 151.2195},
@@ -146,8 +151,30 @@ function initAutocomplete() {
     });
 
     $('#createRDV').click(function (e) {
-        evt.preventDefault();
-
-
+        e.preventDefault() && e.stopPropagation();
+        $('#page-home').hide();
+        $('#page-createDate').show();
+        $('#address').val(input.value);
+        coordinates.lat = markers[0].getPosition().lat;
+        coordinates.lng = markers[0].getPosition().lng;
     });
 }
+
+function storeMeetingData(){
+    var date = document.getElementById('date').value;
+    var hour = document.getElementById('time').value;
+    var place = document.getElementById('address').value;
+    var contact = document.getElementById('contact').value;
+
+    storeMeeting(date,hour,place,contact,coordinates.lat,coordinates.lng);
+}
+
+
+$(function(){
+    $('#storeMeet').on('click',function(e){
+        e.preventDefault() && e.stopPropagation();
+        storeMeetingData();
+        $('#page-createDate').hide();
+        $('#page-link').show();
+    });
+});

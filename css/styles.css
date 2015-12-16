@@ -2,6 +2,14 @@
  * Globals
  */
 
+.page{
+    display: none;
+    height: 100%;
+}
+.page.active{
+    display: block;
+}
+
 /* Links */
 a,
 a:focus,
