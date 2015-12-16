@@ -13,10 +13,10 @@ function geolocalisation() {
         return Math.round(number * 10000) / 10000;
     }
 
-function printPosition(position) {
-    /*document.getElementById('lat').innerHTML = position.coords.latitude;
-    document.getElementById('lng').innerHTML = position.coords.longitude;*/
-}
+    function printPosition(position) {
+        /*document.getElementById('lat').innerHTML = position.coords.latitude;
+        document.getElementById('lng').innerHTML = position.coords.longitude;*/
+    }
 
   function isArrivedInResto(position) {
 
@@ -58,6 +58,7 @@ var pubNub = PUBNUB.init({
 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
 function storeMeeting(date, hour, place,contact,lat,long) {
     var obj = {date: date, hour: hour, place: place, contact: contact,lat:lat,long:long,role:true};
+    console.log(obj);
     var random = '' + Math.round(Math.random() * 10000);
 
     var meetingObject = Parse.Object.extend("Meetings");
@@ -85,7 +86,7 @@ function storeMeeting(date, hour, place,contact,lat,long) {
                                 }
                             });
 
-                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id + '">TEST</a>');
+                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id + '">copie</a>');
                         });
                     }
                 });
@@ -167,8 +168,7 @@ function initAutocomplete() {
         $('#page-home').hide();
         $('#page-createDate').show();
         $('#address').val(input.value);
-        coordinates.lat = markers[0].getPosition().lat;
-        coordinates.lng = markers[0].getPosition().lng;
+        coordinates = markers[0].getPosition();
     });
 }
 
@@ -178,7 +178,7 @@ function storeMeetingData(){
     var place = document.getElementById('address').value;
     var contact = document.getElementById('contact').value;
 
-    storeMeeting(date,hour,place,contact,coordinates.lat,coordinates.lng);
+    storeMeeting(date,hour,place,contact,coordinates.lat(), coordinates.lng());
 }
 
 
