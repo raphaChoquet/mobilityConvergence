@@ -62,6 +62,7 @@
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+    <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script src="js/main.js"></script>
@@ -80,8 +81,16 @@
                 var contact = document.getElementById('contact').value;
                 storeMeeting(date,hour,place,contact);
             }
-        });
 
+        });
+        var pubNub = PUBNUB.init({
+            publish_key: 'pub-c-9cf9add4-0dbe-4dfb-b9b0-23c0007fab9a',
+            subscribe_key: 'sub-c-37c4cafc-a3d9-11e5-9196-02ee2ddab7fe'
+        });
+        pubNub.subscribe({
+            channel: '0QcEgSMHu2',
+            message: function(m){console.log(m)}
+        });
         //storeMeeting
     </script>
     </body>

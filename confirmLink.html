@@ -36,23 +36,44 @@
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+    <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script>
         $(function() {
+            var pubNub = PUBNUB.init({
+                publish_key: 'pub-c-9cf9add4-0dbe-4dfb-b9b0-23c0007fab9a',
+                subscribe_key: 'sub-c-37c4cafc-a3d9-11e5-9196-02ee2ddab7fe'
+            });
+
+
+            /*---------------------------------------------------------------------------------------------------------*/
+
             Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
             var meetingId = location.search.replace('?','');
             var meetingObject = Parse.Object.extend("Meetings");
             var query =new Parse.Query(meetingObject);
-          query.get(meetingId,{
-              success: function(res){
-                  console.log(res);
-              },
-              error: function(error){
-                  console.log(error);
-              }
-          });
+            query.get(meetingId,{
+                  success: function(res){
+                      console.log(res.get('contact'));
+                      pubNub.subscribe({
+                          channel: meetingId,
+                          message: function(m){console.log(m)},
+                          connect: publish
+                      });
 
+                      function publish() {
+                          pubNub.publish({
+                              channel: meetingId,
+                              message: {"message":"Yo Flo"}
+                          });
+                      }
+
+                  },
+                  error: function(error){
+                      console.log(error);
+                  }
+            });
         });
     </script>
     </body>

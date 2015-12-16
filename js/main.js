@@ -12,8 +12,8 @@ function watchPosition(position) {
 
 
 function printPosition(position) {
-    document.getElementById('lat').innerHTML = position.coords.latitude;
-    document.getElementById('lng').innerHTML = position.coords.longitude;
+    /*document.getElementById('lat').innerHTML = position.coords.latitude;
+    document.getElementById('lng').innerHTML = position.coords.longitude;*/
 }
 
 function round4Digits(number) {
@@ -47,9 +47,14 @@ var meet = localforage.createInstance({
     name: "_meetings"
 });
 
+var pubNub = PUBNUB.init({
+    publish_key: 'pub-c-9cf9add4-0dbe-4dfb-b9b0-23c0007fab9a',
+    subscribe_key: 'sub-c-37c4cafc-a3d9-11e5-9196-02ee2ddab7fe'
+});
+
 Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
-function storeMeeting(date, hour, place,contact) {
-    var obj = {date: date, hour: hour, place: place, contact: contact};
+function storeMeeting(date, hour, place,contact,lat,long) {
+    var obj = {date: date, hour: hour, place: place, contact: contact,lat:lat,long:long,role:true};
     var random = '' + Math.round(Math.random() * 10000);
 
     var meetingObject = Parse.Object.extend("Meetings");
@@ -69,6 +74,10 @@ function storeMeeting(date, hour, place,contact) {
                                 if(value){
                                     value.idParse = object.id;
                                     meet.setItem(random,value);
+                                    pubNub.subscribe({
+                                        channel: object.id,
+                                        message: function(m){console.log(m)}
+                                    });
                                 }
                             });
                             console.log(object);
