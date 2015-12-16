@@ -8,26 +8,34 @@
         <link href="css/styles.css" rel="stylesheet">
     </head>
     <body>
-        <div class="site-wrapper">
-                <div class="site-wrapper-inner">
-                    <div class="cover-container">
-                        <div class="inner cover">
-                            <h1 class="cover-heading">Partage l'addition !</h1>
-                            <p class="lead">
-                                <a href="newdate.html" class="btn btn-lg btn-default">Créer un nouveau rendez-vous</a>
-                            </p>
-                        </div>
-                        <div class="mastfoot">
-                            <div class="inner">
-                                <small>&copy; IESA multimedia</small>
-                            </div>
-                        </div>
-                    </div>
+        <div class="site-wrapper" id="page-home">
+            <div class="site-wrapper-row heading">
+                <div class="cover clearfix">
+                    <h1 class="cover-heading">Partage l'addition !</h1>
                 </div>
             </div>
+            <div class="site-wrapper-row">
+                <input id="pac-input" class="controls" type="text" placeholder="Entre l'adresse du restaurant" />
+                <a id="createRDV" href="newdate.html" class="btn btn-primary">Créer un nouveau rendez-vous</a>
+                <div id="map"></div>
+            </div>
+            <div class="site-wrapper-row footer">
+                <div class="inner">
+                    <small>&copy; IESA multimedia</small>
+                </div>
+            </div>
+        </div>
+        <div id="page-form" style="display:none;">
+
+        </div>
+        <div id="page-confirm" style="display:none;">
+
+        </div>
+
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="bower_components/localforage/dist/localforage.js"></script>
         <script src="js/main.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fONeGuj1y1R0jB5lIfzA9zE-8AhMYiI&libraries=places&callback=initAutocomplete" async defer></script>
     </body>
 </html>
