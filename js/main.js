@@ -1,6 +1,6 @@
 function geolocalisation() {
     if ("geolocation" in navigator) {
-        var watchID = navigator.geolocation.watchPosition(watchPosition);
+        var watchID = navigator.geolocation.getCurrentPosition(watchPosition);
     } else {
         alert("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
     }
@@ -13,27 +13,22 @@ function geolocalisation() {
         return Math.round(number * 10000) / 10000;
     }
 
-    function printPosition(position) {
-        /*document.getElementById('lat').innerHTML = position.coords.latitude;
-        document.getElementById('lng').innerHTML = position.coords.longitude;*/
-    }
 
-  function isArrivedInResto(position) {
+    function isArrivedInResto(position) {
 
         var latResto = 48.8656;
         var lngResto = 2.3790;
 
         var currentLat = round4Digits(position.coords.latitude);
         var currentLng = round4Digits(position.coords.longitude);
-
         if (latResto === currentLat && lngResto === currentLng) {
-            console.log('Tu es arrivé');
+        if (latResto === currentLat && lngResto === currentLng) {
+            $('#showRes').html('Tu es arrivé');
         } else {
-            console.log('tu n\'es pas arrivé :/ ')
+            $('#showRes').html('Tu n\'es pas arrivé');
         }
     }
 }
-
 
 
 //Init Local Forage
@@ -85,8 +80,8 @@ function storeMeeting(date, hour, place,contact,lat,long) {
                                     });
                                 }
                             });
-
-                            $('#dateShowLink').append('<a href="confirmLink.html?' + object.id + '">copie</a>');
+                            var msg = '<p>Salut<br>ça te dirait de manger à '+ hour + ' le ' + date + ' à l\'adresse ' + place + '?<br>Si oui, clique sur ce lien : <a href="index.html?' + object.id + '">LIEN</a></p>';
+                            $('#dateShowLink').append('<a href="link.html?' + encodeURIComponent(msg) + '">lien</a>');
                         });
                     }
                 });
@@ -102,8 +97,35 @@ function showDateCreated(){
     $("#dateCreated").show();
 }
 
+
+function showMeeting(meetingId) {
+    $('#page-home').hide();
+    $('#page-confirme').show();
+    Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
+    var meetingObject = Parse.Object.extend("Meetings");
+    var query =new Parse.Query(meetingObject);
+    query.get(meetingId,{
+        success: function(res){
+            $('#showContact').append(res.get('contact'));
+            $('#showDate').append(res.get('date'));
+            $('#showHour').append(res.get('hour'));
+            $('#showAddress').append(res.get('place'));
+            console.log();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
 var coordinates = {};
 function initAutocomplete() {
+    var meetingId = location.search.replace('?','');
+    if (meetingId != '') {
+        showMeeting(meetingId);
+        return;
+    }
+
 
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -33.8688, lng: 151.2195},

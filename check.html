@@ -25,7 +25,8 @@
                 <div class="inner cover">
                     <p class="lead">Arrivé(e) ?</p>
                     <p class="lead">Valide ta position pour confirmer ton arrivée</p>
-                    <button class="btn btn-default">Vérifier sa position</button>
+                    <button id="check" class="btn btn-default">Vérifier sa position</button>
+                    <p id="showRes"></p>
                 </div>
                 <div class="mastfoot">
                     <div class="inner">
@@ -35,7 +36,16 @@
             </div>
         </div>
     </div>
-    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
+    <script src="bower_components/localforage/dist/localforage.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        $('#check').click(function () {
+            geolocalisation();
+        });
+    </script>
     </body>
 </html>

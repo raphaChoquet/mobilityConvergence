@@ -124,12 +124,12 @@
                             </div>
                         </div>
                         <div class="inner cover">
-                            <p class="lead">Vous avez bien validé l'invitation de XXX</p>
-                            <p>Date : </p>
-                            <p>Heure : </p>
-                            <p>Adresse :</p>
-                            <p id="dateLink"></p>
+                            <p class="lead">Vous avez bien validé l'invitation de <span id="showContact"></span></p>
+                            <p>Date : <span id="showDate"></span></p>
+                            <p>Heure : <span id="showHour"></span></p>
+                            <p>Adresse : <span id="showAddress"></span></p>
                             <a href="#">Clique ici pour annuler ta validation</a>
+                            <p><a class="btn btn-default" href="#page-myDates">Voir mes rendez-vous</a></p>
                         </div>
                         <div class="mastfoot">
                             <div class="inner">
@@ -143,36 +143,9 @@
         <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
         <script src="bower_components/localforage/dist/localforage.js"></script>
         <script src="js/main.js"></script>
-        <script>
-
-            //Get informations Local Storage
-
-            //storeMeeting
-
-            $("#dateShowLink").on('click', 'a', function (e) {
-                e.preventDefault() && e.stopPropagation();
-                $('#page-createDate').hide();
-                $('#page-confirme').show();
-                showMeeting();
-            });
-            function showMeeting() {
-
-                Parse.initialize("WX10p6tFNHBr9WAiJhRMf18GHKZATrpLsF5mvjUB", "wonBWvqCg9dAzGVSzCHEt9Ry5oPAxPlF5Mpsks1t");
-                var meetingId = location.search.replace('?','');
-                var meetingObject = Parse.Object.extend("Meetings");
-                var query =new Parse.Query(meetingObject);
-                query.get(meetingId,{
-                    success: function(res){
-                        console.log(res);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            }
-        </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fONeGuj1y1R0jB5lIfzA9zE-8AhMYiI&libraries=places&callback=initAutocomplete" async defer></script>
     </body>
 </html>
